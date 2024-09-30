@@ -1,10 +1,9 @@
 package fr.bordeaux.isped.sitis.exam_prog301.domain;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import fr.bordeaux.isped.sitis.exam_prog301.service.PatientDTO;
+import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
 
@@ -13,8 +12,18 @@ import java.time.LocalDate;
 public class PatientDomain {
     //Attributes
     @Id
-    @Column(name="pat_id")
-    private String id;
+    @GeneratedValue(generator = "sequence-generator")
+    @GenericGenerator(
+            name="sequence-generator",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+    parameters = {@org.hibernate.annotations.Parameter(name = "sequence_name", value = "user_sequence"),
+            @org.hibernate.annotations.Parameter(name= "initial_value", value= "4"),
+    @org.hibernate.annotations.Parameter(name="increment_size", value="1")}
+
+    )
+
+
+    private long id;
     @Column(name="pat_birth_date")
     private LocalDate birthDate;
     @Column(name="pat_sex_cod")
@@ -27,25 +36,23 @@ public class PatientDomain {
     private String bloodType;
     //Constructors
     //empty constructor
-    public PatientDomain() {
-    }
+    public PatientDomain(){}
 
-    public PatientDomain(String id, LocalDate birthDate, SexEnum sexCod, String name, String firstName, String bloodType) {
-        this.id = id;
-        this.birthDate = birthDate;
-        this.sexCod = sexCod;
-        this.name = name;
-        this.firstName = firstName;
-        this.bloodType = bloodType;
+    public PatientDomain(PatientDTO patientDTO){
+        this.birthDate = patientDTO.getBirthDate();
+        this.sexCod = patientDTO.getSexCod();
+        this.name = patientDTO.getName();
+        this.firstName = patientDTO.getFirstName();
+        this.bloodType = patientDTO.getBloodType();
     }
 
     //Getters and Setters
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
