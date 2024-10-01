@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public class PatientDTO {
     //Attributes
-    private String id;
+
     private LocalDate birthDate;
     private SexEnum sexCod;
     private String name ;

@@ -9,20 +9,14 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name="tab_patient_301", schema = "projet_prog301")
+
 public class PatientDomain {
     //Attributes
     @Id
-    @GeneratedValue(generator = "sequence-generator")
-    @GenericGenerator(
-            name="sequence-generator",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-    parameters = {@org.hibernate.annotations.Parameter(name = "sequence_name", value = "user_sequence"),
-            @org.hibernate.annotations.Parameter(name= "initial_value", value= "4"),
-    @org.hibernate.annotations.Parameter(name="increment_size", value="1")}
+    @GeneratedValue(strategy =GenerationType.SEQUENCE, generator = "sequence-generator")
+    @SequenceGenerator(name="sequence-generator", sequenceName = "projet_prog301.seq_patient_301",schema="projet_prog301",initialValue = 1, allocationSize = 1)
 
-    )
-
-
+    @Column(name="pat_id")
     private long id;
     @Column(name="pat_birth_date")
     private LocalDate birthDate;

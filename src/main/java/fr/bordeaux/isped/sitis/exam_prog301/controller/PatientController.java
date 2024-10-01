@@ -3,6 +3,7 @@ package fr.bordeaux.isped.sitis.exam_prog301.controller;
 import fr.bordeaux.isped.sitis.exam_prog301.domain.PatientDomain;
 import fr.bordeaux.isped.sitis.exam_prog301.service.PatientDTO;
 import fr.bordeaux.isped.sitis.exam_prog301.service.PatientService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,8 @@ public class PatientController {
 }
 
     @PostMapping("api/patient")
-    public ResponseEntity<PatientDomain> createPatient(@RequestBody(required = false) PatientDTO patientDTO){
+    public ResponseEntity<PatientDomain> createPatient(@Valid @RequestBody(required = false) PatientDTO patientDTO){
+
         return patientService.createPatient(patientDTO);
     }
 
