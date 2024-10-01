@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PatientService {
@@ -28,10 +30,36 @@ public class PatientService {
         return new ResponseEntity<PatientDomain>(patient, HttpStatus.OK);
     }
 
+    public ResponseEntity<PatientDomain> findById(String patientId){
 
+        // Get PatientDomain instance by patientId. findById() method return patient has Optional<PatientDomain>
+        Optional<PatientDomain> patient = patientRepository.findById(patientId);
 
+        // Test if the patient (Optional<PatientDomain>) is empty
+        if(patient.isEmpty()){
+            // If empty, throw ResponseStatusException with HttpStatus.NOT_FOUND
+            throwPatientNotFound(patientId);
+        }
 
+        // Return patient as PatientDomain encapsulate within a ResponseEntity with HttpStatus.OK
+        return new ResponseEntity<PatientDomain>(patient.get(), HttpStatus.OK);
 
+    }
 
+    /**
+     * Throw exception when the patient ID was not found within the DB.
+     *
+     * @param  patientId  the ID of the patient that was not found in the DB
+     * @throws ResponseStatusException
+     */
+    private void throwPatientNotFound(String patientId){
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Entity " + patientId + " not found in the DataBase");
+    }
 
 }
+
+
+
+
+
+

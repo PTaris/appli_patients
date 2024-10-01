@@ -6,10 +6,7 @@ import fr.bordeaux.isped.sitis.exam_prog301.service.PatientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +19,13 @@ public class PatientController {
     public List<PatientDomain> getPatient(){
         return patientService.getPatient();
 }
+
+    @GetMapping("api/patient/{id}")
+    public ResponseEntity<PatientDomain> findById(@PathVariable(name = "id") String patientId) {
+        return patientService.findById(patientId);
+    }
+
+
 
     @PostMapping("api/patient")
     public ResponseEntity<PatientDomain> createPatient(@Valid @RequestBody(required = false) PatientDTO patientDTO){
