@@ -1,6 +1,7 @@
 package fr.bordeaux.isped.sitis.exam_prog301.controller;
 
 import fr.bordeaux.isped.sitis.exam_prog301.domain.PatientDomain;
+import fr.bordeaux.isped.sitis.exam_prog301.repository.PatientCountSex;
 import fr.bordeaux.isped.sitis.exam_prog301.service.PatientDTO;
 import fr.bordeaux.isped.sitis.exam_prog301.service.PatientService;
 import jakarta.validation.Valid;
@@ -35,5 +36,12 @@ public class PatientController {
 
         return patientService.createPatient(patientDTO);
     }
+
+    @GetMapping("api/patient/count")
+    public List<PatientCountSex> countSexes(){
+        return patientService.countSexes();
+    }
+
+
 
 }

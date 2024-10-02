@@ -1,6 +1,7 @@
 package fr.bordeaux.isped.sitis.exam_prog301.service;
 
 import fr.bordeaux.isped.sitis.exam_prog301.domain.PatientDomain;
+import fr.bordeaux.isped.sitis.exam_prog301.repository.PatientCountSex;
 import fr.bordeaux.isped.sitis.exam_prog301.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -56,6 +57,16 @@ public class PatientService {
     private void throwPatientNotFound(String patientId){
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Entity " + patientId + " not found in the DataBase");
     }
+
+    public List<PatientCountSex> countSexes(){
+        List<PatientCountSex> patientCountSex = patientRepository.countPatientBySex();
+        return patientCountSex;
+    }
+
+
+
+
+
 
 }
 

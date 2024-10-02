@@ -8,7 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="tab_patient_301", schema = "projet_prog301")
+@Table(name= "tab_patient_301", schema = "projet_prog301")
 
 public class PatientDomain {
     //Attributes
