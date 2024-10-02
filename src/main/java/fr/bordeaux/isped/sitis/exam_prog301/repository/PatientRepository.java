@@ -6,14 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
 @Repository
 public interface PatientRepository extends JpaRepository<PatientDomain, String> {
-    @Query(value = "SELECT "
-            + "COUNT(*) AS patientCount, "
-            + "pat_sex_cod AS sex "
-            + "FROM tab_patient_301 "
-            + "GROUP BY pat_sex_cod; ",
+
+
+    @Query(value = "SELECT COUNT(*) AS patientCount, pat_sex_cod AS sex FROM projet_prog301.tab_patient_301 GROUP BY pat_sex_cod; ",
             nativeQuery = true)
     List<PatientCountSex> countPatientBySex();
 }

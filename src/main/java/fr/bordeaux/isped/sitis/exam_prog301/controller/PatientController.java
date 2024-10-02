@@ -20,6 +20,7 @@ public class PatientController {
 @Autowired
     private PatientService patientService;
     @GetMapping(path="/api/all")
+    @CrossOrigin(origins = "http://localhost:3000")
     public List<PatientDomain> findAllPatients(Pageable pageable){
         return patientService.findAllPatients(pageable);
 }
