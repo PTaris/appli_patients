@@ -3,6 +3,7 @@ package fr.bordeaux.isped.sitis.exam_prog301.service;
 import fr.bordeaux.isped.sitis.exam_prog301.domain.PatientDomain;
 import fr.bordeaux.isped.sitis.exam_prog301.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.util.Optional;
 public class PatientService {
     @Autowired
     private PatientRepository patientRepository;
-    public List<PatientDomain> getPatient(){
+    public List<PatientDomain> findAllPatients(Pageable pageable){
         return patientRepository.findAll();
     }
     public ResponseEntity<PatientDomain> createPatient(PatientDTO patientDTO){
