@@ -21,8 +21,9 @@ public class PatientController {
     private PatientService patientService;
     @GetMapping(path="/api/all")
     @CrossOrigin(origins = "http://localhost:3000")
-    public List<PatientDomain> findAllPatients(Pageable pageable){
-        return patientService.findAllPatients(pageable);
+    public List<PatientDomain> findAllPatients(@RequestParam(name="page") int page,@RequestParam(name="pagesize") int pagesize ){
+        Pageable pageable1 = PageRequest.of(page, pagesize);
+        return patientService.findAllPatients(pageable1);
 }
 
     @GetMapping("api/patient/{id}")

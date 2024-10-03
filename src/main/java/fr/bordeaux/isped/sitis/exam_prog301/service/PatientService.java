@@ -18,7 +18,7 @@ public class PatientService {
     @Autowired
     private PatientRepository patientRepository;
     public List<PatientDomain> findAllPatients(Pageable pageable){
-        return patientRepository.findAll();
+        return patientRepository.findAll(pageable).toList();
     }
     public ResponseEntity<PatientDomain> createPatient(PatientDTO patientDTO){
         // Create an instance of PatientDomain based on an instance of PatientDTO
