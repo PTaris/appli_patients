@@ -4,6 +4,8 @@ import fr.bordeaux.isped.sitis.exam_prog301.domain.SexEnum;
 import jakarta.persistence.Column;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PatientDTO {
     //Attributes
@@ -13,10 +15,11 @@ public class PatientDTO {
     private String name ;
     private String firstName;
     private String bloodType;
+    private String mom ;
+    private String dad ;
     //Constructor
     public PatientDTO(){}
     //Getters and Setters
-
 
     public LocalDate getBirthDate() {
         return birthDate;
@@ -58,5 +61,19 @@ public class PatientDTO {
         this.bloodType = bloodType;
     }
 
+    public String getMom() {
+        return mom;
+    }
 
+    public void setMom(String mom) {
+        this.mom = mom;
+    }
+
+    public String getDad() {
+        return dad;
+    }
+
+    public void setDad(String dad) {
+        this.dad = dad;
+    }
 }

@@ -7,7 +7,6 @@ import fr.bordeaux.isped.sitis.exam_prog301.service.PatientDTO;
 import fr.bordeaux.isped.sitis.exam_prog301.service.PatientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -51,10 +50,6 @@ public class PatientController {
     public ResponseEntity<PatientDomain> createChild(@Valid @RequestBody(required = false) ChildDTO childDTO){
 
         return patientService.createChild(childDTO);
-    }
-    @PostMapping("api/patient/parents")
-    public ResponseEntity<String> getParentsType(ChildDTO childDTO){
-        return patientService.systemABO(childDTO);
     }
 
 }

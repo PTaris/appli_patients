@@ -4,7 +4,6 @@ package fr.bordeaux.isped.sitis.exam_prog301.domain;
 import fr.bordeaux.isped.sitis.exam_prog301.service.ChildDTO;
 import fr.bordeaux.isped.sitis.exam_prog301.service.PatientDTO;
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
 
@@ -29,6 +28,10 @@ public class PatientDomain {
     private String firstName;
     @Column(name="pat_blood_type")
     private String bloodType;
+    @Column(name="pat_mom")
+    private String mom;
+    @Column(name="pat_dad")
+    private String dad;
     //Constructors
     //empty constructor
     public PatientDomain(){}
@@ -39,6 +42,8 @@ public class PatientDomain {
         this.name = patientDTO.getName();
         this.firstName = patientDTO.getFirstName();
         this.bloodType = patientDTO.getBloodType();
+        this.mom = patientDTO.getMom();
+        this.dad = patientDTO.getDad();
     }
 
     public PatientDomain(ChildDTO childDTO){
@@ -46,12 +51,18 @@ public class PatientDomain {
         this.sexCod = childDTO.getSexCod();
         this.name = childDTO.getName();
         this.firstName = childDTO.getFirstName();
+        this.bloodType= childDTO.getBloodType();
+        this.mom = childDTO.getMom();
+        this.dad = childDTO.getDad();
+
 
     }
 
 
 
+
     //Getters and Setters
+
 
     public long getId() {
         return id;
@@ -101,18 +112,33 @@ public class PatientDomain {
         this.bloodType = bloodType;
     }
 
-    //ToString
+    public String getMom() {
+        return mom;
+    }
 
+    public void setMom(String mom) {
+        this.mom = mom;
+    }
+
+    public String getDad() {
+        return dad;
+    }
+
+    public void setDad(String dad) {
+        this.dad = dad;
+    }
 
     @Override
     public String toString() {
         return "PatientDomain{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", birthDate=" + birthDate +
                 ", sexCod=" + sexCod +
                 ", name='" + name + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", bloodType='" + bloodType + '\'' +
+                ", mom='" + mom + '\'' +
+                ", dad='" + dad + '\'' +
                 '}';
     }
 }

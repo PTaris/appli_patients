@@ -66,37 +66,11 @@ public class PatientService {
         List<PatientCountSex> patientCountSex = patientRepository.countPatientBySex();
         return patientCountSex;
     }
+// look if the child have parents in the db else ?
+    public String systemABO(ChildDTO child){
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// save the child
-    public ResponseEntity<PatientDomain> createChild(ChildDTO childDTO) {
-        // Create an instance of PatientDomain based on an instance of PatientDTO
-        PatientDomain child = new PatientDomain(childDTO);
-
-        // Save the instance of PatientDomain within the DB
-        // The save() method return an instance of PatientDomain, including the id attribute generated DB-side
-        child = patientRepository.save(child);
-
-        // Return the saved instance within a ResponseEntity
-        return new ResponseEntity<PatientDomain>(child, HttpStatus.OK);}
-
-
-    public ResponseEntity<String> systemABO(ChildDTO child){
-
-        String id1= child.getIdMom();
-        String id2= child.getIdDad();
+        String id1= child.getMom();
+        String id2= child.getDad();
 
         Optional<PatientDomain> dadOptional = patientRepository.findById(id1);
         Optional<PatientDomain> momOptional = patientRepository.findById(id2);
@@ -106,13 +80,34 @@ public class PatientService {
 
         String dadBloodType = dad.getBloodType();
         String momBloodType = mom.getBloodType();
-        return ResponseEntity.ok(dadBloodType + momBloodType);
 
+        if (dadBloodType.equals(momBloodType)) {
+            child.setBloodType(momBloodType);
+
+        } else if ((dadBloodType == "A" || dadBloodType =="O") && ((momBloodType == "A" || momBloodType =="O"))) {
+            child.setBloodType("A");}
+
+        else if ((dadBloodType == "B" || dadBloodType =="O") && ((momBloodType == "B" || momBloodType =="O"))) {
+            child.setBloodType("B");}
+
+        return child.getBloodType();
     }
 
+// save the child
+    public ResponseEntity<PatientDomain> createChild(ChildDTO childDTO) {
+        // Create an instance of PatientDomain based on an instance of PatientDTO
 
+        PatientDomain child = new PatientDomain(childDTO);
 
+        String bloodtype = systemABO(childDTO);
+        child.setBloodType(bloodtype);
 
+        // Save the instance of PatientDomain within the DB
+        // The save() method return an instance of PatientDomain, including the id attribute generated DB-side
+        child = patientRepository.save(child);
+
+        // Return the saved instance within a ResponseEntity
+        return new ResponseEntity<PatientDomain>(child, HttpStatus.OK);}
 
 }
 

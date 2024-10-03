@@ -3,23 +3,17 @@ package fr.bordeaux.isped.sitis.exam_prog301.service;
 import fr.bordeaux.isped.sitis.exam_prog301.domain.SexEnum;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ChildDTO {
-    //Attributes
     private LocalDate birthDate;
     private SexEnum sexCod;
-    private String name;
+    private String name ;
     private String firstName;
-    private String idMom;
-    private String idDad;
-
-    //Constructors
-    public ChildDTO() {
-    }
-
-    //Getters and setters
+    private String bloodType;
+    private String mom ;
+    private String dad ;
+    //Constructor
+    public ChildDTO(){}
 
     public LocalDate getBirthDate() {
         return birthDate;
@@ -53,20 +47,28 @@ public class ChildDTO {
         this.firstName = firstName;
     }
 
-    public String getIdMom() {
-        return idMom;
+    public String getBloodType() {
+        return bloodType;
     }
 
-    public void setIdMom(String idMom) {
-        this.idMom = idMom;
+    public void setBloodType(String bloodType) {
+        this.bloodType = bloodType;
     }
 
-    public String getIdDad() {
-        return idDad;
+    public String getMom() {
+        return mom;
     }
 
-    public void setIdDad(String idDad) {
-        this.idDad = idDad;
+    public void setMom(String mom) {
+        this.mom = mom;
+    }
+
+    public String getDad() {
+        return dad;
+    }
+
+    public void setDad(String dad) {
+        this.dad = dad;
     }
 
     @Override
@@ -76,8 +78,8 @@ public class ChildDTO {
                 ", sexCod=" + sexCod +
                 ", name='" + name + '\'' +
                 ", firstName='" + firstName + '\'' +
-                ", idMom='" + idMom + '\'' +
-                ", idDad='" + idDad + '\'' +
+                ", mom='" + mom + '\'' +
+                ", dad='" + dad + '\'' +
                 '}';
     }
 }
