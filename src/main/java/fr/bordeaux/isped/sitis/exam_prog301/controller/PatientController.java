@@ -2,6 +2,7 @@ package fr.bordeaux.isped.sitis.exam_prog301.controller;
 
 import fr.bordeaux.isped.sitis.exam_prog301.domain.PatientDomain;
 import fr.bordeaux.isped.sitis.exam_prog301.repository.PatientCountSex;
+import fr.bordeaux.isped.sitis.exam_prog301.service.ChildDTO;
 import fr.bordeaux.isped.sitis.exam_prog301.service.PatientDTO;
 import fr.bordeaux.isped.sitis.exam_prog301.service.PatientService;
 import jakarta.validation.Valid;
@@ -46,5 +47,14 @@ public class PatientController {
     }
 
 
+    @PostMapping("api/patient/create")
+    public ResponseEntity<PatientDomain> createChild(@Valid @RequestBody(required = false) ChildDTO childDTO){
+
+        return patientService.createChild(childDTO);
+    }
+    @PostMapping("api/patient/parents")
+    public ResponseEntity<String> getParentsType(ChildDTO childDTO){
+        return patientService.systemABO(childDTO);
+    }
 
 }

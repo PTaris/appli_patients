@@ -1,6 +1,7 @@
 package fr.bordeaux.isped.sitis.exam_prog301.domain;
 
 
+import fr.bordeaux.isped.sitis.exam_prog301.service.ChildDTO;
 import fr.bordeaux.isped.sitis.exam_prog301.service.PatientDTO;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -39,6 +40,16 @@ public class PatientDomain {
         this.firstName = patientDTO.getFirstName();
         this.bloodType = patientDTO.getBloodType();
     }
+
+    public PatientDomain(ChildDTO childDTO){
+        this.birthDate=childDTO.getBirthDate();
+        this.sexCod = childDTO.getSexCod();
+        this.name = childDTO.getName();
+        this.firstName = childDTO.getFirstName();
+
+    }
+
+
 
     //Getters and Setters
 
