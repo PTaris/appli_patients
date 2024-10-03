@@ -10,7 +10,7 @@ import java.util.List;
 public interface PatientRepository extends JpaRepository<PatientDomain, String> {
 
 
-    @Query(value = "SELECT COUNT(*) AS patientCount, pat_sex_cod AS sex FROM projet_prog301.tab_patient_301 GROUP BY pat_sex_cod; ",
+    @Query(value = "SELECT COUNT(*) AS patientCount, pat_sex_cod AS sexCod FROM projet_prog301.tab_patient_301 GROUP BY pat_sex_cod; ",
             nativeQuery = true)
     List<PatientCountSex> countPatientBySex();
 }

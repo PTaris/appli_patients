@@ -41,6 +41,7 @@ public class PatientController {
     @GetMapping("api/patient/count")
     public List<PatientCountSex> countSexes(){
         return patientService.countSexes();
+
     }
 
 
