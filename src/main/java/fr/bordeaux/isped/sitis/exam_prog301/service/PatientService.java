@@ -67,10 +67,10 @@ public class PatientService {
         return patientCountSex;
     }
 // look if the child have parents in the db else ?
-    public String systemABO(ChildDTO child){
+    public ResponseEntity<PatientDomain> systemABO(ChildDTO child){
 
-        String id1= child.getMom();
-        String id2= child.getDad();
+        String id1= child.getMomId();
+        String id2= child.getDadId();
 
         Optional<PatientDomain> dadOptional = patientRepository.findById(id1);
         Optional<PatientDomain> momOptional = patientRepository.findById(id2);
@@ -81,35 +81,24 @@ public class PatientService {
         String dadBloodType = dad.getBloodType();
         String momBloodType = mom.getBloodType();
 
+        PatientDomain childPatient = new PatientDomain(child);
+
         if (dadBloodType.equals(momBloodType)) {
-            child.setBloodType(momBloodType);
+            childPatient.setBloodType(momBloodType);
 
         } else if ((dadBloodType == "A" || dadBloodType =="O") && ((momBloodType == "A" || momBloodType =="O"))) {
-            child.setBloodType("A");}
+            childPatient.setBloodType("A");}
 
         else if ((dadBloodType == "B" || dadBloodType =="O") && ((momBloodType == "B" || momBloodType =="O"))) {
-            child.setBloodType("B");}
+            childPatient.setBloodType("B");}
 
-        return child.getBloodType();
-    }
+        childPatient = patientRepository.save(childPatient);
 
-// save the child
-    public ResponseEntity<PatientDomain> createChild(ChildDTO childDTO) {
-        // Create an instance of PatientDomain based on an instance of PatientDTO
-
-        PatientDomain child = new PatientDomain(childDTO);
-
-        String bloodtype = systemABO(childDTO);
-        child.setBloodType(bloodtype);
-
-        // Save the instance of PatientDomain within the DB
-        // The save() method return an instance of PatientDomain, including the id attribute generated DB-side
-        child = patientRepository.save(child);
-
-        // Return the saved instance within a ResponseEntity
-        return new ResponseEntity<PatientDomain>(child, HttpStatus.OK);}
+        return new ResponseEntity<PatientDomain>(childPatient, HttpStatus.OK);}
 
 }
+
+
 
 
 

@@ -7,13 +7,15 @@ import java.time.LocalDate;
 public class ChildDTO {
     private LocalDate birthDate;
     private SexEnum sexCod;
-    private String name ;
+    private String name;
     private String firstName;
-    private String bloodType;
-    private String mom ;
-    private String dad ;
+    private String momId;
+    private String dadId;
+
     //Constructor
-    public ChildDTO(){}
+    public ChildDTO() {
+    }
+
 
     public LocalDate getBirthDate() {
         return birthDate;
@@ -47,28 +49,20 @@ public class ChildDTO {
         this.firstName = firstName;
     }
 
-    public String getBloodType() {
-        return bloodType;
+    public String getMomId() {
+        return momId;
     }
 
-    public void setBloodType(String bloodType) {
-        this.bloodType = bloodType;
+    public void setMomId(String momId) {
+        this.momId = momId;
     }
 
-    public String getMom() {
-        return mom;
+    public String getDadId() {
+        return dadId;
     }
 
-    public void setMom(String mom) {
-        this.mom = mom;
-    }
-
-    public String getDad() {
-        return dad;
-    }
-
-    public void setDad(String dad) {
-        this.dad = dad;
+    public void setDadId(String dadId) {
+        this.dadId = dadId;
     }
 
     @Override
@@ -78,8 +72,8 @@ public class ChildDTO {
                 ", sexCod=" + sexCod +
                 ", name='" + name + '\'' +
                 ", firstName='" + firstName + '\'' +
-                ", mom='" + mom + '\'' +
-                ", dad='" + dad + '\'' +
+                ", momId='" + momId + '\'' +
+                ", dadId='" + dadId + '\'' +
                 '}';
     }
 }

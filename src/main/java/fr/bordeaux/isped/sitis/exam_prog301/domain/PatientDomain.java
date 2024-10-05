@@ -28,10 +28,12 @@ public class PatientDomain {
     private String firstName;
     @Column(name="pat_blood_type")
     private String bloodType;
-    @Column(name="pat_mom")
-    private String mom;
-    @Column(name="pat_dad")
-    private String dad;
+    @Column(name= "pat_id_mom")
+    private String momId ;
+    @Column(name= "pat_id_dad")
+    private String dadId ;
+
+
     //Constructors
     //empty constructor
     public PatientDomain(){}
@@ -42,27 +44,18 @@ public class PatientDomain {
         this.name = patientDTO.getName();
         this.firstName = patientDTO.getFirstName();
         this.bloodType = patientDTO.getBloodType();
-        this.mom = patientDTO.getMom();
-        this.dad = patientDTO.getDad();
+
     }
 
     public PatientDomain(ChildDTO childDTO){
-        this.birthDate=childDTO.getBirthDate();
+        this.birthDate = childDTO.getBirthDate();
         this.sexCod = childDTO.getSexCod();
         this.name = childDTO.getName();
         this.firstName = childDTO.getFirstName();
-        this.bloodType= childDTO.getBloodType();
-        this.mom = childDTO.getMom();
-        this.dad = childDTO.getDad();
-
+        this.momId = childDTO.getMomId();
+        this.dadId = childDTO.getDadId();
 
     }
-
-
-
-
-    //Getters and Setters
-
 
     public long getId() {
         return id;
@@ -112,20 +105,20 @@ public class PatientDomain {
         this.bloodType = bloodType;
     }
 
-    public String getMom() {
-        return mom;
+    public String getMomId() {
+        return momId;
     }
 
-    public void setMom(String mom) {
-        this.mom = mom;
+    public void setMomId(String momId) {
+        this.momId = momId;
     }
 
-    public String getDad() {
-        return dad;
+    public String getDadId() {
+        return dadId;
     }
 
-    public void setDad(String dad) {
-        this.dad = dad;
+    public void setDadId(String dadId) {
+        this.dadId = dadId;
     }
 
     @Override
@@ -137,8 +130,8 @@ public class PatientDomain {
                 ", name='" + name + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", bloodType='" + bloodType + '\'' +
-                ", mom='" + mom + '\'' +
-                ", dad='" + dad + '\'' +
+                ", momId='" + momId + '\'' +
+                ", dadId='" + dadId + '\'' +
                 '}';
     }
 }

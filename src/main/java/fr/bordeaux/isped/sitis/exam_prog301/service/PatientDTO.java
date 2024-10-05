@@ -15,8 +15,9 @@ public class PatientDTO {
     private String name ;
     private String firstName;
     private String bloodType;
-    private String mom ;
-    private String dad ;
+
+
+
     //Constructor
     public PatientDTO(){}
     //Getters and Setters
@@ -61,19 +62,4 @@ public class PatientDTO {
         this.bloodType = bloodType;
     }
 
-    public String getMom() {
-        return mom;
-    }
-
-    public void setMom(String mom) {
-        this.mom = mom;
-    }
-
-    public String getDad() {
-        return dad;
-    }
-
-    public void setDad(String dad) {
-        this.dad = dad;
-    }
 }
