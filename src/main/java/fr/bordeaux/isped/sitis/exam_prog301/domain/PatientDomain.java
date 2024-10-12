@@ -22,8 +22,8 @@ public class PatientDomain {
     private LocalDate birthDate;
     @Column(name="pat_sex_cod")
     private SexEnum sexCod;
-    @Column(name="pat_name")
-    private String name ;
+    @Column(name="pat_lastname")
+    private String lastName ;
     @Column(name="pat_firstname")
     private String firstName;
     @Column(name="pat_blood_type")
@@ -32,8 +32,8 @@ public class PatientDomain {
     private String momId ;
     @Column(name= "pat_id_dad")
     private String dadId ;
-
-
+    @Column(name="pat_birth_place")
+    private String birthPlace;
     //Constructors
     //empty constructor
     public PatientDomain(){}
@@ -41,17 +41,19 @@ public class PatientDomain {
     public PatientDomain(PatientDTO patientDTO){
         this.birthDate = patientDTO.getBirthDate();
         this.sexCod = patientDTO.getSexCod();
-        this.name = patientDTO.getName();
+        this.lastName = patientDTO.getLastName();
         this.firstName = patientDTO.getFirstName();
         this.bloodType = patientDTO.getBloodType();
+        this.birthPlace = patientDTO.getBirthPlace();
 
     }
 
     public PatientDomain(ChildDTO childDTO){
         this.birthDate = childDTO.getBirthDate();
         this.sexCod = childDTO.getSexCod();
-        this.name = childDTO.getName();
+        this.lastName = childDTO.getLastName();
         this.firstName = childDTO.getFirstName();
+        this.birthPlace = childDTO.getBirthPlace();
         this.momId = childDTO.getMomId();
         this.dadId = childDTO.getDadId();
 
@@ -81,12 +83,12 @@ public class PatientDomain {
         this.sexCod = sexCod;
     }
 
-    public String getName() {
-        return name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getFirstName() {
@@ -120,6 +122,16 @@ public class PatientDomain {
     public void setDadId(String dadId) {
         this.dadId = dadId;
     }
+    public String getBirthPlace() {
+        return birthPlace;
+    }
+
+    public void setBirthPlace(String birthPlace) {
+        this.birthPlace = birthPlace;
+    }
+
+
+
 
     @Override
     public String toString() {
@@ -127,11 +139,12 @@ public class PatientDomain {
                 "id=" + id +
                 ", birthDate=" + birthDate +
                 ", sexCod=" + sexCod +
-                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", bloodType='" + bloodType + '\'' +
                 ", momId='" + momId + '\'' +
                 ", dadId='" + dadId + '\'' +
+                ", birthDate='"+birthPlace+
                 '}';
     }
 }

@@ -68,7 +68,7 @@ public class PatientService {
         List<PatientCountSex> patientCountSex = patientRepository.countPatientBySex();
         return patientCountSex;
     }
-// look if the child have parents in the db else ?
+// check if the child have parents who are patients
     public ResponseEntity<PatientDomain> systemABO(ChildDTO child){
 
         String id1= child.getMomId();
@@ -76,8 +76,8 @@ public class PatientService {
 
         Optional<PatientDomain> dadOptional = patientRepository.findById(id1);
         Optional<PatientDomain> momOptional = patientRepository.findById(id2);
-        //if parent's id is not given properly
-        if (dadOptional.isEmpty() && !momOptional.isEmpty()) {
+        //if parents' id is not given properly
+        if (dadOptional.isEmpty() && momOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 
         }else{
@@ -89,44 +89,50 @@ public class PatientService {
         String dadBloodType = dad.getBloodType();
         String momBloodType = mom.getBloodType();
 
-        // create a new Patient
-        PatientDomain childPatient = new PatientDomain(child);
+        //get parent's sex to check
+        SexEnum maledad = dad.getSexCod();
+        SexEnum femalemom = mom.getSexCod();
 
-        if (dadBloodType.equals(momBloodType)) {
-            childPatient.setBloodType(momBloodType);
+        // create a new Patient if it is biologically possible
+        if(maledad.equals(SexEnum.FEMALE) || femalemom.equals(SexEnum.MALE)){
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
+        }else {
 
-        } else if ((dadBloodType.equals("A") || dadBloodType.equals("O")) && (momBloodType.equals("A") || momBloodType.equals("O"))){
-            childPatient.setBloodType("A");}
 
-        else if ((dadBloodType.equals("B") || dadBloodType.equals("O")) && ((momBloodType.equals("B") || momBloodType.equals("O")))) {
-            childPatient.setBloodType("B");}
+            PatientDomain childPatient = new PatientDomain(child);
 
-        else if ((dadBloodType.equals("AB")|| dadBloodType.equals("O")) && ((momBloodType.equals("AB")|| momBloodType.equals("O")))) {
-            // I generate randomly a coherent bloodtype because of several possibilities for instance (AB + 0 ==> A or B type )
-            //Instance of the class java Random
-            Random random = new Random();
+            if (dadBloodType.equals(momBloodType)) {
+                childPatient.setBloodType(momBloodType);
 
-            // Random between 0 and 1 to have B or A with the enum class RandomBloodTypeEnum
-            int randomInt = random.nextInt(2);
-            String bloodType=  RandomBloodTypeEnum.randomBloodTypeEnum(randomInt);
-            childPatient.setBloodType(bloodType);}
-        else if ((dadBloodType.equals("AB") || dadBloodType.equals("A")) && ((momBloodType.equals("AB") || momBloodType.equals("A")))) {
-            // several possibilities for instance (AB + A ==> AB or A type ).
-            //Instance of the class java Random
-            Random random = new Random();
-            // 1 or 2 to have A or AB with the enum class RandomBloodTypeEnum
-            int randomInt = random.nextInt(1,3);
-            String bloodType=  RandomBloodTypeEnum.randomBloodTypeEnum(randomInt);
-            childPatient.setBloodType(bloodType);}
+            } else if ((dadBloodType.equals("A") || dadBloodType.equals("O")) && (momBloodType.equals("A") || momBloodType.equals("O"))) {
+                childPatient.setBloodType("A");
+            } else if ((dadBloodType.equals("B") || dadBloodType.equals("O")) && ((momBloodType.equals("B") || momBloodType.equals("O")))) {
+                childPatient.setBloodType("B");
+            } else if ((dadBloodType.equals("AB") || dadBloodType.equals("O")) && ((momBloodType.equals("AB") || momBloodType.equals("O")))) {
+                // Generate randomly a coherent bloodtype because of several possibilities for instance (AB + 0 ==> A or B type )
+                //Instance of the java class Random
+                Random random = new Random();
 
-        // save the child with the right bloodtype
-        childPatient = patientRepository.save(childPatient);
+                // Random between 0 and 1 to have B or A with the enum class RandomBloodTypeEnum
+                int randomInt = random.nextInt(2);
+                String bloodType = RandomBloodTypeEnum.randomBloodTypeEnum(randomInt);
+                childPatient.setBloodType(bloodType);
+            } else if ((dadBloodType.equals("AB") || dadBloodType.equals("A")) && ((momBloodType.equals("AB") || momBloodType.equals("A")))) {
+                // several possibilities for instance (AB + A ==> AB or A type ).
+                //Instance of the class java Random
+                Random random = new Random();
+                // 1 or 2 to have A or AB with the enum class RandomBloodTypeEnum
+                int randomInt = random.nextInt(1, 3);
+                String bloodType = RandomBloodTypeEnum.randomBloodTypeEnum(randomInt);
+                childPatient.setBloodType(bloodType);
+            }
 
-        //return new ResponseEntity<PatientDomain>(childPatient, HttpStatus.OK);
-        return ResponseEntity.ok(childPatient);
-    }}
+            // save the child with the right bloodtype
+            childPatient = patientRepository.save(childPatient);
 
-}
+            //return new ResponseEntity<PatientDomain>(childPatient, HttpStatus.OK);
+            return ResponseEntity.ok(childPatient);
+        }}}}
 
 
 

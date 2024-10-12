@@ -7,8 +7,9 @@ import java.time.LocalDate;
 public class ChildDTO {
     private LocalDate birthDate;
     private SexEnum sexCod;
-    private String name;
+    private String lastName;
     private String firstName;
+    private String birthPlace;
     private String momId;
     private String dadId;
 
@@ -16,6 +17,13 @@ public class ChildDTO {
     public ChildDTO() {
     }
 
+    public String getBirthPlace(){
+        return birthPlace;
+    }
+
+    public void setBirthPlace(String birthPlace){
+        this.birthPlace=birthPlace;
+    }
 
     public LocalDate getBirthDate() {
         return birthDate;
@@ -33,12 +41,12 @@ public class ChildDTO {
         this.sexCod = sexCod;
     }
 
-    public String getName() {
-        return name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getFirstName() {
@@ -70,10 +78,11 @@ public class ChildDTO {
         return "ChildDTO{" +
                 "birthDate=" + birthDate +
                 ", sexCod=" + sexCod +
-                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", momId='" + momId + '\'' +
                 ", dadId='" + dadId + '\'' +
+                ", birthPlace='" + birthPlace +
                 '}';
     }
 }

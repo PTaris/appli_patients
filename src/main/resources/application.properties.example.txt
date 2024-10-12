@@ -1,0 +1,11 @@
+spring.application.name=exam_prog301
+# Connection dialect
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+
+# Connection modality
+spring.datasource.url=jdbc:postgresql://[HOST_NAME]:[PORT]/[DB_NAME]
+spring.datasource.username=[USERNAME]
+spring.datasource.password=[PASSWORD]
+
+# Configuration de JPA
+spring.jpa.hibernate.ddl-auto=update
