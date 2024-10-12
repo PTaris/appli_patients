@@ -76,8 +76,13 @@ public class PatientService {
 
         Optional<PatientDomain> dadOptional = patientRepository.findById(id1);
         Optional<PatientDomain> momOptional = patientRepository.findById(id2);
+        //if parent's id is not given properly
+        if (dadOptional.isEmpty() && !momOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 
-        PatientDomain dad = dadOptional.get();//voir isPresent
+        }else{
+
+        PatientDomain dad = dadOptional.get();
         PatientDomain mom = momOptional.get();
 
         // get parents' bloodtype
@@ -102,22 +107,24 @@ public class PatientService {
             Random random = new Random();
 
             // Random between 0 and 1 to have B or A with the enum class RandomBloodTypeEnum
-            int randomInt = random.nextInt(0,1);
+            int randomInt = random.nextInt(2);
             String bloodType=  RandomBloodTypeEnum.randomBloodTypeEnum(randomInt);
             childPatient.setBloodType(bloodType);}
         else if ((dadBloodType.equals("AB") || dadBloodType.equals("A")) && ((momBloodType.equals("AB") || momBloodType.equals("A")))) {
-            // several possibilities for instance (AB + A ==> AB or A type )
+            // several possibilities for instance (AB + A ==> AB or A type ).
             //Instance of the class java Random
             Random random = new Random();
             // 1 or 2 to have A or AB with the enum class RandomBloodTypeEnum
-            int randomInt = random.nextInt(1,2);
+            int randomInt = random.nextInt(1,3);
             String bloodType=  RandomBloodTypeEnum.randomBloodTypeEnum(randomInt);
             childPatient.setBloodType(bloodType);}
 
         // save the child with the right bloodtype
         childPatient = patientRepository.save(childPatient);
 
-        return new ResponseEntity<PatientDomain>(childPatient, HttpStatus.OK);}
+        //return new ResponseEntity<PatientDomain>(childPatient, HttpStatus.OK);
+        return ResponseEntity.ok(childPatient);
+    }}
 
 }
 
