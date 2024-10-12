@@ -1,9 +1,11 @@
 package fr.bordeaux.isped.sitis.exam_prog301.service;
 
 import fr.bordeaux.isped.sitis.exam_prog301.domain.PatientDomain;
+import fr.bordeaux.isped.sitis.exam_prog301.domain.RandomBloodTypeEnum;
 import fr.bordeaux.isped.sitis.exam_prog301.domain.SexEnum;
 import fr.bordeaux.isped.sitis.exam_prog301.repository.PatientCountSex;
 import fr.bordeaux.isped.sitis.exam_prog301.repository.PatientRepository;
+import org.apache.logging.log4j.message.StringFormattedMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -14,7 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
+import java.util.Random;
 @Service
 public class PatientService {
     @Autowired
@@ -78,20 +80,41 @@ public class PatientService {
         PatientDomain dad = dadOptional.get();//voir isPresent
         PatientDomain mom = momOptional.get();
 
+        // get parents' bloodtype
         String dadBloodType = dad.getBloodType();
         String momBloodType = mom.getBloodType();
 
+        // create a new Patient
         PatientDomain childPatient = new PatientDomain(child);
 
         if (dadBloodType.equals(momBloodType)) {
             childPatient.setBloodType(momBloodType);
 
-        } else if ((dadBloodType == "A" || dadBloodType =="O") && ((momBloodType == "A" || momBloodType =="O"))) {
+        } else if ((dadBloodType.equals("A") || dadBloodType.equals("O")) && (momBloodType.equals("A") || momBloodType.equals("O"))){
             childPatient.setBloodType("A");}
 
-        else if ((dadBloodType == "B" || dadBloodType =="O") && ((momBloodType == "B" || momBloodType =="O"))) {
+        else if ((dadBloodType.equals("B") || dadBloodType.equals("O")) && ((momBloodType.equals("B") || momBloodType.equals("O")))) {
             childPatient.setBloodType("B");}
 
+        else if ((dadBloodType.equals("AB")|| dadBloodType.equals("O")) && ((momBloodType.equals("AB")|| momBloodType.equals("O")))) {
+            // I generate randomly a coherent bloodtype because of several possibilities for instance (AB + 0 ==> A or B type )
+            //Instance of the class java Random
+            Random random = new Random();
+
+            // Random between 0 and 1 to have B or A with the enum class RandomBloodTypeEnum
+            int randomInt = random.nextInt(0,1);
+            String bloodType=  RandomBloodTypeEnum.randomBloodTypeEnum(randomInt);
+            childPatient.setBloodType(bloodType);}
+        else if ((dadBloodType.equals("AB") || dadBloodType.equals("A")) && ((momBloodType.equals("AB") || momBloodType.equals("A")))) {
+            // several possibilities for instance (AB + A ==> AB or A type )
+            //Instance of the class java Random
+            Random random = new Random();
+            // 1 or 2 to have A or AB with the enum class RandomBloodTypeEnum
+            int randomInt = random.nextInt(1,2);
+            String bloodType=  RandomBloodTypeEnum.randomBloodTypeEnum(randomInt);
+            childPatient.setBloodType(bloodType);}
+
+        // save the child with the right bloodtype
         childPatient = patientRepository.save(childPatient);
 
         return new ResponseEntity<PatientDomain>(childPatient, HttpStatus.OK);}

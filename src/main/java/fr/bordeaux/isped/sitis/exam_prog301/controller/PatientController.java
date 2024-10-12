@@ -34,7 +34,7 @@ public class PatientController {
 
 
     @PostMapping("api/patient")
-    public ResponseEntity<PatientDomain> createPatient(@Valid @RequestBody(required = false) PatientDTO patientDTO){
+    public ResponseEntity<PatientDomain> createPatient(@RequestBody() PatientDTO patientDTO){
 
         return patientService.createPatient(patientDTO);
     }
@@ -47,7 +47,7 @@ public class PatientController {
 
 
     @PostMapping("api/patient/create")
-    public ResponseEntity<PatientDomain> systemABO(@Valid @RequestBody(required = false) ChildDTO childDTO){
+    public ResponseEntity<PatientDomain> systemABO(@RequestBody() ChildDTO childDTO){
 
         return patientService.systemABO(childDTO);
     }
