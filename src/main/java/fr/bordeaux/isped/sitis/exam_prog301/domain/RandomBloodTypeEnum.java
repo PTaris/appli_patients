@@ -5,7 +5,7 @@ public enum RandomBloodTypeEnum {
 
     public static String randomBloodTypeEnum(int index){
          return values()[index].name();
-         // return the value of my class as a String
+         // .name() to return the value of my class as a String thanks to an index
     }
 
 }

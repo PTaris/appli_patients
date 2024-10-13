@@ -5,7 +5,6 @@ import fr.bordeaux.isped.sitis.exam_prog301.domain.RandomBloodTypeEnum;
 import fr.bordeaux.isped.sitis.exam_prog301.domain.SexEnum;
 import fr.bordeaux.isped.sitis.exam_prog301.repository.PatientCountSex;
 import fr.bordeaux.isped.sitis.exam_prog301.repository.PatientRepository;
-import org.apache.logging.log4j.message.StringFormattedMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -13,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -89,7 +87,7 @@ public class PatientService {
         String dadBloodType = dad.getBloodType();
         String momBloodType = mom.getBloodType();
 
-        //get parent's sex to check
+        //get parents' sex to check
         SexEnum maledad = dad.getSexCod();
         SexEnum femalemom = mom.getSexCod();
 
