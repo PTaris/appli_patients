@@ -1,39 +1,39 @@
 package fr.bordeaux.isped.sitis.exam_prog301.domain;
 
 
+import fr.bordeaux.isped.sitis.exam_prog301.service.ChildDTO;
 import fr.bordeaux.isped.sitis.exam_prog301.service.PatientDTO;
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
 
 @Entity
-@Table(name="tab_patient_301", schema = "projet_prog301")
+@Table(name= "tab_patient_301", schema = "projet_prog301")
+
 public class PatientDomain {
     //Attributes
     @Id
-    @GeneratedValue(generator = "sequence-generator")
-    @GenericGenerator(
-            name="sequence-generator",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-    parameters = {@org.hibernate.annotations.Parameter(name = "sequence_name", value = "user_sequence"),
-            @org.hibernate.annotations.Parameter(name= "initial_value", value= "4"),
-    @org.hibernate.annotations.Parameter(name="increment_size", value="1")}
+    @GeneratedValue(strategy =GenerationType.SEQUENCE, generator = "sequence-generator")
+    @SequenceGenerator(name="sequence-generator", sequenceName = "projet_prog301.seq_patient_301",schema="projet_prog301",initialValue = 1, allocationSize = 1)
 
-    )
-
-
+    @Column(name="pat_id")
     private long id;
     @Column(name="pat_birth_date")
     private LocalDate birthDate;
     @Column(name="pat_sex_cod")
     private SexEnum sexCod;
-    @Column(name="pat_name")
-    private String name ;
+    @Column(name="pat_lastname")
+    private String lastName ;
     @Column(name="pat_firstname")
     private String firstName;
     @Column(name="pat_blood_type")
     private String bloodType;
+    @Column(name= "pat_id_mom")
+    private String momId ;
+    @Column(name= "pat_id_dad")
+    private String dadId ;
+    @Column(name="pat_birth_place")
+    private String birthPlace;
     //Constructors
     //empty constructor
     public PatientDomain(){}
@@ -41,12 +41,23 @@ public class PatientDomain {
     public PatientDomain(PatientDTO patientDTO){
         this.birthDate = patientDTO.getBirthDate();
         this.sexCod = patientDTO.getSexCod();
-        this.name = patientDTO.getName();
+        this.lastName = patientDTO.getLastName();
         this.firstName = patientDTO.getFirstName();
         this.bloodType = patientDTO.getBloodType();
+        this.birthPlace = patientDTO.getBirthPlace();
+
     }
 
-    //Getters and Setters
+    public PatientDomain(ChildDTO childDTO){
+        this.birthDate = childDTO.getBirthDate();
+        this.sexCod = childDTO.getSexCod();
+        this.lastName = childDTO.getLastName();
+        this.firstName = childDTO.getFirstName();
+        this.birthPlace = childDTO.getBirthPlace();
+        this.momId = childDTO.getMomId();
+        this.dadId = childDTO.getDadId();
+
+    }
 
     public long getId() {
         return id;
@@ -72,12 +83,12 @@ public class PatientDomain {
         this.sexCod = sexCod;
     }
 
-    public String getName() {
-        return name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getFirstName() {
@@ -96,18 +107,44 @@ public class PatientDomain {
         this.bloodType = bloodType;
     }
 
-    //ToString
+    public String getMomId() {
+        return momId;
+    }
+
+    public void setMomId(String momId) {
+        this.momId = momId;
+    }
+
+    public String getDadId() {
+        return dadId;
+    }
+
+    public void setDadId(String dadId) {
+        this.dadId = dadId;
+    }
+    public String getBirthPlace() {
+        return birthPlace;
+    }
+
+    public void setBirthPlace(String birthPlace) {
+        this.birthPlace = birthPlace;
+    }
+
+
 
 
     @Override
     public String toString() {
         return "PatientDomain{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", birthDate=" + birthDate +
                 ", sexCod=" + sexCod +
-                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", bloodType='" + bloodType + '\'' +
+                ", momId='" + momId + '\'' +
+                ", dadId='" + dadId + '\'' +
+                ", birthPlace='"+birthPlace+
                 '}';
     }
 }
