@@ -65,5 +65,5 @@ public class PatientDTO {
 
     public String getBirthPlace(){return birthPlace;}
 
-    public void setBirthPlace(String birthPlace){this.birthDate=birthDate;}
+    public void setBirthPlace(String birthPlace){this.birthPlace=birthPlace;}
 }

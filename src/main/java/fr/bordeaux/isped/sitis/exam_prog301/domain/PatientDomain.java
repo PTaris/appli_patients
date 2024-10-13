@@ -144,7 +144,7 @@ public class PatientDomain {
                 ", bloodType='" + bloodType + '\'' +
                 ", momId='" + momId + '\'' +
                 ", dadId='" + dadId + '\'' +
-                ", birthDate='"+birthPlace+
+                ", birthPlace='"+birthPlace+
                 '}';
     }
 }
